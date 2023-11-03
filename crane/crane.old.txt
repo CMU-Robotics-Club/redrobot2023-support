@@ -1,0 +1,84 @@
+// vim: tabstop=4 shiftwidth=4 expandtab
+#include <Arduino.h>
+#include <Wire.h>
+#include <vl53l4cd_class.h>
+
+VL53L4CD sensor1(&Wire, 8);
+//VL53L4CD sensor2(&Wire1, 9);
+
+void setup_sensors() {
+    Wire.setSDA(4);
+    Wire.setSCL(5);
+    Wire.begin();
+
+    sensor1.begin();
+    sensor1.VL53L4CD_Off();
+    sensor1.InitSensor();
+    sensor1.VL53L4CD_SetRangeTiming(200, 0);
+    sensor1.VL53L4CD_StartRanging();
+
+    //Wire1.setSDA(6);
+    //Wire1.setSCL(7);
+    //Wire1.begin();
+
+    //sensor2.begin();
+    //sensor2.VL53L4CD_Off();
+    //sensor2.InitSensor();
+    //sensor2.VL53L4CD_SetRangeTiming(200, 0);
+    //sensor2.VL53L4CD_StartRanging();
+}
+
+uint8_t read_status;
+uint8_t NewDataReady = 0;
+VL53L4CD_Result_t results;
+
+uint32_t read_sensor1() {
+    delay(10);
+    NewDataReady = 0;
+    while (!NewDataReady) read_status = sensor1.VL53L4CD_CheckForDataReady(&NewDataReady);
+
+    if ((!read_status) && (NewDataReady != 0)) {
+        sensor1.VL53L4CD_ClearInterrupt();
+        sensor1.VL53L4CD_GetResult(&results);
+        
+        if (results.range_status == 0) {
+            return constrain(results.distance_mm, 10, 2000);
+        } else {
+            return 2000;
+        }
+    } else {
+        return 0;
+    }
+}
+
+/*uint32_t read_sensor2() {
+    NewDataReady = 0;
+    while (!NewDataReady) read_status = sensor2.VL53L4CD_CheckForDataReady(&NewDataReady);
+
+    if ((!read_status) && (NewDataReady != 0)) {
+        sensor2.VL53L4CD_ClearInterrupt();
+        sensor2.VL53L4CD_GetResult(&results);
+        
+        if (results.range_status == 0) {
+            return constrain(results.distance_mm, 10, 2000);
+        } else {
+            return 2000;
+        }
+    } else {
+        return 0;
+    }
+    delay(10);
+}*/
+
+void setup() {
+    Serial.begin(115200);
+
+    setup_sensors();
+}
+
+void loop() {
+    uint32_t dist = read_sensor1();
+    Serial.print(dist);
+    Serial.println();
+}
+
