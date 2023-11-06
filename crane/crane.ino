@@ -3,7 +3,7 @@
 #include <Adafruit_NeoPixel.h>
 
 #define NUM_LEDS 12
-#define BRIGHTNESS 20
+#define BRIGHTNESS 10
 
 #define LEDS1_PIN 4
 #define LEDS2_PIN 5
@@ -79,7 +79,7 @@ void set_leds(Adafruit_NeoPixel *leds, uint8_t mode) {
 
 void set_servo(uint8_t mode) {
     if (mode == 0) {
-        tgt = 16 + (((int)(millis() / 100)) % 10);
+        tgt = 16;
     }
     if (mode == 1) tgt = 96;
     if (mode == 2) tgt = 176;
@@ -102,11 +102,11 @@ void loop() {
 
     //if (Serial.available()) tgt = Serial.read();
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 20; i++) {
         delay(10);
         if (tgt > cur) cur += 1;
         if (tgt < cur) cur -= 1;
-        srv.write(cur);
+        if (tgt != cur) srv.write(cur);
     }
 }
 

@@ -4,21 +4,65 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Scoring</title>
-        <link href="bootstrap.min.css" rel="stylesheet">
+        <link href="/res/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
         <div class="container" style="padding-top: 20pt;">
-            <h2 style="width: 100%; font-family: Comic Sans MS; text-align: center; font-weight: bold;"><span style="color: red;">Red Robot</span> Hackathon</h2>
+
+            <h2 style="width: 100%; font-size: 60pt; font-family: Comic Sans MS; text-align: center; font-weight: bold;"><span style="color: red;">Red Robot</span> Hackathon</h2>
+
+            <span id="countdown" style="font-size: 50pt; display: none; margin: auto; text-align: center;">
+                <span id="cd5">5</span>
+                <span style="visibility: hidden; display: inline-block; width: 15pt;">.</span>
+                <span id="cd4">4</span>
+                <span style="visibility: hidden; display: inline-block; width: 15pt;">.</span>
+                <span id="cd3">3</span>
+                <span style="visibility: hidden; display: inline-block; width: 15pt;">.</span>
+                <span id="cd2">2</span>
+                <span style="visibility: hidden; display: inline-block; width: 15pt;">.</span>
+                <span id="cd1">1</span>
+                <span style="visibility: hidden; display: inline-block; width: 15pt;">.</span>
+                <span id="cd0">GO</span>
+            </span>
+
+            <span style="display: block; margin: auto; width: 100%">
+                <span id="timer" style="font-size: 180pt; display: block; margin: auto; margin-top: -30pt; margin-bottom: -30pt; text-align: center;">3:00</span>
+            </span>
+
+            <span id="period" style="font-size: 50pt; margin-top: -10pt; display: block; margin: auto; text-align: center;">Autonomous Period</span>
+
             <br>
-            <a class="btn btn-info btn-lg" href="#" onclick="reset_timer()">Reset</a>
-            <span style="visibility: hidden">....</span>
-            <a class="btn btn-success btn-lg" href="#" id="btn-start" onclick="start_timer()">Start</a>
-            <p></p>
+            <br>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                        <br>
+                        <a class="btn btn-info btn-lg btn-block" style="width: 100%" href="#" onclick="reset_timer()">Reset</a>
+                        <br>
+                        <br>
+                        <a class="btn btn-danger btn-lg btn-block" style="width: 100%" href="#" onclick="cancel_timer()">Cancel</a>
+                    </div>
+
+                    <div class="col-1"></div>
+                    <div id="red_crane_box" class="col-3" style="background-color: #a32e2e; height: 160px; border: 10px solid #00000000;">
+                        <span id="red_crane_pts" style="display: block; margin-top: -6pt; width: 100%; text-align: center; font-size: 50pt;">999</span>
+                        <span style="display: block; width: 100%; margin-top: -12pt; text-align: center; font-size: 30pt;">crane pts</span>
+                    </div>
+                    <div class="col-1"></div>
+                    <div id="blue_crane_box" class="col-3" style="background-color: #2e55d9; height: 160px; border: 10px solid #00000000;">
+                        <span id="blue_crane_pts" style="display: block; margin-top: -6pt; width: 100%; text-align: center; font-size: 50pt;">999</span>
+                        <span style="display: block; width: 100%; margin-top: -12pt; text-align: center; font-size: 30pt;">crane pts</span>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
         
-        <script src="bootstrap.bundle.min.js"></script>
-        <script src="jquery.min.js"></script>
-        <script src="index.js"></script>
+        <script src="/res/bootstrap.bundle.min.js"></script>
+        <script src="/res/jquery.min.js"></script>
+        <script src="/res/index.js"></script>
     </body>
 </html>
 
